@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+	<title>Sliding Puzzle Quiz</title>
+	<!--
+
+	The Sliding Puzzle Quiz
+
+	1. Make the markup below appear as the sliding puzzle in the screenshot: "expected desktop result.png"
+		• It has to work in any one desktop browser: Safari, Chrome, Firefox, MS IE, or Opera
+		• Any valid CSS is permitted
+		• Please do not make any changes to the html in the body tag
+	-->
+	<style type="text/css">
+	*{
+		 
+    font-family: "Arial", Helvetica neue, serif;
+   
+
+	}
+	figure.SlidingPuzzleFigure 
+	{
+		height: 208px;
+		width: 209px;
+		background-color: #000000;
+        padding: 9px 0px 0px 15px;
+        margin: 30px;
+
+        border-radius: 6px ;
+
+	}
+
+ul.SlidingPuzzle 
+{
+margin: 0;
+padding: 0;
+list-style-type: none;
+height: 205px;
+		width: 205px;
+
+}
+.Tile
+		{
+			border: 6px solid #D0D0D0;
+			border-style: outset;
+			color: #000000;
+			font-style: bold;
+			background-color: #ffffff;
+			display: inline-block;
+            width:10%;
+            text-align: center;
+			padding: 10px 18px 10px 18px;
+			margin-left: -5px;
+			font-size:30px;
+
+
+         	
+    
+         
+		}
+
+
+	figcaption{
+		padding-top: 20px;
+		font-style: italic;
+		font-size: 20px;
+		margin-left: 10px;
+	}
+
+
+	</style>
+	
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" type="text/javascript"></script>
+
+	<script>
+array =[];
+
+$(document).ready(function()
+ {
+ 	
+$("ul").append('<li style="visibility:hidden" class="Tile Tile9"></li>');
+ 		
+		$('ul li').each(function(i)
+			{
+  				var q = $(this).position();
+  				q.name = i;
+  				array.push(q);
+			});
+ 			
+ 	array[8].name = "blank";
+
+ 
+ 	 $("ul li").click(function(){
+
+ 	 	CanMove($(this).index());
+ 	 	//$(this).slideUp(500, CanMove($(this).index())).slideDown(500);
+
+ 	 });	
+
+ });
+
+
+$.fn.switch = function(selector) {
+    var other = $(selector);
+    this.after(other.clone());
+    other.after(this).remove();
+};
+
+
+function CanMove(posObjectIndex)
+{
+	
+	var switchPos = -1;
+
+	//check bottom move
+	if(posObjectIndex+3 <=8  && array[posObjectIndex+3].name=="blank")
+	{
+		switchPos = posObjectIndex+3;
+	}
+	
+	//check top move
+	else if(posObjectIndex-3>=0  && array[posObjectIndex-3].name=="blank")
+	{
+		switchPos = posObjectIndex-3;
+	}
+	//check right move
+	else if(posObjectIndex+1 <=8  && array[posObjectIndex+1].name=="blank")
+	{
+		switchPos = posObjectIndex+1;
+	}
+	//check left move
+	else if(posObjectIndex-1 >=0 && array[posObjectIndex-1].name=="blank")
+	{
+		switchPos = posObjectIndex-1;
+	}
+	if(switchPos!=-1)
+	{
+
+		$("ul li:eq("+posObjectIndex+")").switch("ul li:eq("+switchPos+")");
+		switchNames(posObjectIndex,switchPos);
+		
+	}
+}
+
+function switchNames(p, q)
+{
+	array[p].name = "blank";
+	array[q].name = p+1;
+}
+
+
+</script>
+
+
+</head>
+<body>
+
+	<!-- Do not edit any html in the body tag -->
+	<figure class="SlidingPuzzleFigure">
+
+		<ul class="SlidingPuzzle">
+			<li class="Tile Tile1">1</li>
+			<li class="Tile Tile2">2</li>
+			<li class="Tile Tile3">3</li>
+			<li class="Tile Tile4">4</li>
+			<li class="Tile Tile5">5</li>
+			<li class="Tile Tile6">6</li>
+			<li class="Tile Tile7">7</li>
+			<li class="Tile Tile8">8</li>
+		
+		</ul>
+
+		<figcaption>A Sliding Puzzle</figcaption>
+	</figure>
+	<!-- Do not edit any html in the body tag -->
+
+</body>
+</html>
